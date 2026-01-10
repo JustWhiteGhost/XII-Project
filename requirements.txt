@@ -1,0 +1,15 @@
+# Fog-Shrouded Chronicles - Requirements
+# Install all with: pip install -r requirements.txt
+
+# Core dependencies
+pandas>=2.0.0
+groq>=0.4.0
+sentence-transformers>=2.2.0
+networkx>=3.0
+numpy>=1.24.0
+Pillow>=10.0.0
+
+# Optional (for data visualization)
+matplotlib>=3.7.0
+
+# Note: tkinter comes with Python, no need to install
