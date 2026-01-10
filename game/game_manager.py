@@ -2,13 +2,22 @@
 Game Manager - Orchestrates game logic and data flow
 """
 from data.character_data import CharacterDatabase
+from data.HeroData import CharacterParser
 from game.game_state import GameState
+from ui.Dice_ui import DiceUI
+import json
 
+with open('config.json', 'r') as f:
+    config = json.load(f)
 
 class GameManager:
     def __init__(self, console):
         self.console = console
         self.db = CharacterDatabase()
+        self.dice = DiceUI(dice=config["dice"], die_size=200)
+        self.phraser = CharacterParser("D:\\Projects\\XII Project\\Data CSVs\\Hero.csv",
+                                       "D:\\Projects\\XII Project\\Data CSVs\\Item_Lookup.csv",
+                                       "D:\\Projects\\XII Project\\Data CSVs\\Skill_Lookup.csv")
         self.state = GameState()
         
         # Set up console callbacks
@@ -83,9 +92,10 @@ class GameManager:
             profile = (
                 f"{char['name']}\n"
                 f"Age: {char['age']}\n"
-                f"Profession: {char['profession']}\n"
-                f"Mood: {char['mood']}\n"
-                f"Nature: {char['nature']}"
+                f"Class: {char['class']}\n"
+                f"Race: {char['race']}\n"
+                f"Level: {char['level']}\n"
+                f"Player: {char['player']}"
             )
         else:
             profile = "No character selected"
@@ -110,10 +120,9 @@ class GameManager:
         """Display character information"""
         self.console.print_to_chat("Opening character panel...", "SYSTEM")
         # Load first character as example
-        chars = self.db.get_all_characters()
-        if not chars.empty:
-            char = chars.iloc[0]
-            self.state.current_character = char.to_dict()
+        chars = self.phraser.get_basic_info()
+        if chars:
+            self.state.current_character = chars
             self._update_profile()
     
     def show_location_info(self):
@@ -131,11 +140,24 @@ class GameManager:
             f"Gold: {self.state.player_gold}",
             "STATS"
         )
-    
+    # D20 check handler
+    def perform_d20_check(self, mod: int, bonus: int = 0, difficulty: int = 10) -> bool:
+        """Perform a D20 check against a difficulty"""
+        roll = self.dice.roll_die("1d20")
+        total = roll + mod + bonus
+        success = total >= difficulty
+        return {"roll": roll, "total": total, "success": success}
+    #Attack Roll handler
+    def attack_roll(self, character, weapon, target_ac):
+        dex_mod = character['dexterity_mod']["modifier"]
+        attack_bonus = weapon["damage_bonus"]
+
+        return self.perform_d20_check(mod=dex_mod, bonus=attack_bonus, difficulty=target_ac)
     # Action button handlers
     def action_talk(self):
         """Handle talk action"""
-        self.console.print_to_chat("Talked Smack", "ACTION")
+        result = self.dice.roll_die(dice="4d20")
+        self.console.print_to_chat(f"You engage in conversation... Rolled a {result}", "ACTION")
     
     def action_trade(self):
         """Handle trade action"""
@@ -147,7 +169,7 @@ class GameManager:
     
     def action_leave(self):
         """Handle leave action"""
-        self.console.print_to_chat("You prepare to leave...", "ACTION")
+        self.console.print_to_chat(f"{self.phraser.get_weapons()}","ACTION")
     
     def action_examine(self):
         """Handle examine action"""

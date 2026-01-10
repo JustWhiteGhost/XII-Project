@@ -214,15 +214,22 @@ class SetupManager:
         
         default_config = {
             "groq_api_key": "YOUR_API_KEY_HERE",
-            "model": "llama-3.1-70b-versatile",
-            "max_tokens": 800,
-            "temperature": 0.85,
-            "game_settings": {
+            "primary_model": {
+                "model": "llama-3.1-8b-instant",
+                "max_tokens": 500,
+                "temperature": 0.85,
+            },
+           "advanced_model": {
+                "model": "llama-3.1-70b-versatile",
+                "max_tokens": 800,
+                "temperature": 0.85
+            },
+           "game_settings": {
                 "auto_save": True,
                 "save_interval": 10,
                 "max_history": 100
+                }
             }
-        }
         
         try:
             with open(config_path, 'w') as f:

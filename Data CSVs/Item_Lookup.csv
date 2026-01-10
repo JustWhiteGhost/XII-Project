@@ -1,0 +1,48 @@
+item_id|item_name|item_type|subtype|damage_dice|damage_bonus|damage_type|range_normal|range_max|properties|armor_class_bonus|requires_dex|max_dex_bonus|weight|cost|rarity|description|special_effects
+WPN001|Revolver|weapon|firearm|1d10|0|piercing|40|120|Loading, Two-handed or One-handed|0|0|0|3|75gp|common|Six-shot cylinder revolver|Reload action required after 6 shots
+WPN002|Rifle|weapon|firearm|2d6|0|piercing|80|240|Loading, Two-handed|0|0|0|8|150gp|common|Long-barrel rifle for distance|Reload action required after 1 shot
+WPN003|Shotgun|weapon|firearm|2d8|0|piercing|30|90|Loading, Two-handed, Spread|0|0|0|7|100gp|common|Scatter gun effective at close range|Advantage at close range (within 15ft), disadvantage beyond normal range
+WPN004|Hunting Knife|weapon|melee|1d4|0|slashing|0|0|Light, Finesse, Thrown (20/60)|0|0|0|1|5gp|common|Versatile blade for hunting and combat|Can be used for survival tasks
+WPN005|Longsword|weapon|melee|1d8|0|slashing|0|0|Versatile (1d10)|0|0|0|3|15gp|common|Standard knight's blade|1d10 damage if used two-handed
+WPN006|Greatsword|weapon|melee|2d6|0|slashing|0|0|Heavy, Two-handed|0|0|0|6|50gp|common|Massive two-handed blade|Requires strength 13+
+WPN007|Club|weapon|melee|1d4|0|bludgeoning|0|0|Light|0|0|0|2|1sp|common|Simple wooden club|Can be found as improvised weapon
+WPN008|Dagger|weapon|melee|1d4|0|piercing|0|0|Light, Finesse, Thrown (20/60)|0|0|0|1|2gp|common|Small concealable blade|Easy to hide
+WPN009|Crossbow|weapon|ranged|1d8|0|piercing|80|320|Loading, Two-handed|0|0|0|5|25gp|common|Mechanical bow|Reload action required after each shot
+WPN010|Longbow|weapon|ranged|1d8|0|piercing|150|600|Two-handed, Ammunition|0|0|0|2|50gp|common|Wooden bow for distance|Requires strength 13+
+WPN011|Throwing Axe|weapon|thrown|1d6|0|slashing|20|60|Light, Thrown|0|0|0|2|5gp|common|Balanced axe for throwing|Can be used in melee
+ARM001|Leather Duster|armor|light|0|0|0|0|0|0|12|1|5|8|10gp|common|Long leather coat|Stylish and protective
+ARM002|Leather Armor|armor|light|0|0|0|0|0|0|11|1|5|10|5gp|common|Basic leather protection|Light and flexible
+ARM003|Studded Leather|armor|light|0|0|0|0|0|0|12|1|5|13|45gp|common|Leather reinforced with studs|Better protection than basic leather
+ARM004|Chain Shirt|armor|medium|0|0|0|0|0|0|13|1|2|20|50gp|common|Short chain mail shirt|Moderate protection
+ARM005|Breastplate|armor|medium|0|0|0|0|0|0|14|1|2|20|400gp|uncommon|Metal chest plate|Good protection without full plate weight
+ARM006|Half Plate|armor|medium|0|0|0|0|0|0|15|1|2|40|750gp|uncommon|Partial plate armor|Heavy but effective
+ARM007|Full Plate|armor|heavy|0|0|0|0|0|0|18|0|0|65|1500gp|rare|Complete suit of plate armor|Maximum protection, requires strength 15+
+ARM008|Shield|armor|shield|0|0|0|0|0|0|2|0|0|6|10gp|common|Wooden or metal shield|+2 AC bonus, requires one hand
+AMN001|Bullets (20)|ammunition|firearm|0|0|0|0|0|0|0|0|0|1|5gp|common|Standard ammunition for firearms|Used by revolvers, rifles, pistols
+AMN002|Arrows (20)|ammunition|bow|0|0|0|0|0|0|0|0|0|1|1gp|common|Standard arrows|Used by bows
+AMN003|Crossbow Bolts (20)|ammunition|crossbow|0|0|0|0|0|0|0|0|0|1.5|1gp|common|Bolts for crossbows|Used by crossbows
+AMN004|Silver Bullets (10)|ammunition|firearm|0|0|0|0|0|Special (silver)|0|0|0|0.5|25gp|uncommon|Silver ammunition for supernatural threats|Extra damage against certain creatures
+LGT001|Oil Lantern|light_source|lantern|0|0|0|0|0|0|0|0|0|1|5sp|common|Metal lantern burning oil|Provides 30ft bright light, 30ft dim. Burns 1 pint oil per 8 hours
+LGT002|Torch|light_source|torch|0|0|0|0|0|0|0|0|0|1|1cp|common|Wooden torch with pitch|Provides 20ft bright light, 20ft dim. Burns for 1 hour
+CMS001|Oil Flask (1 pint)|consumable|fuel|0|0|fire|20|0|Throwable|0|0|0|1|1sp|common|Flask of lamp oil|Fuel for lanterns or thrown as weapon (1d4 fire damage)
+CMS002|Rations (1 day)|consumable|food|0|0|0|0|0|0|0|0|0|2|5sp|common|Preserved food for one day|Prevents starvation
+CMS003|Waterskin|consumable|water|0|0|0|0|0|0|0|0|0|5|2sp|common|Leather container for water|Holds 4 pints of liquid
+CMS004|Healing Potion|consumable|potion|2d4|2|healing|0|0|Single use|0|0|0|0.5|50gp|common|Red potion that restores health|Restores 2d4+2 HP as an action
+CMS005|Antitoxin|consumable|potion|0|0|0|0|0|Single use|0|0|0|0.5|50gp|uncommon|Counteracts poison|Advantage on saves vs poison for 1 hour
+SPL001|Warding Circle (inscribed)|inscribed_spell|protection|0|0|0|0|0|Single use, 10ft radius|0|0|0|0.1|200gp|rare|Magical inscription on parchment|Creates protective barrier against demons/monsters for 1 hour
+SPL002|Revealing Light (inscribed)|inscribed_spell|utility|0|0|radiant|0|0|Single use, 60ft radius|0|0|0|0.1|150gp|rare|Magical inscription on parchment|Dispels fog and reveals hidden creatures for 10 minutes
+SPL003|Banishing Seal (inscribed)|inscribed_spell|combat|4d6|0|force|30|0|Single use, one target|0|0|0|0.1|300gp|rare|Magical inscription on parchment|Forces demon/spirit to make save or be banished
+SPL004|Fortifying Rune (inscribed)|inscribed_spell|buff|0|0|0|0|0|Single use, touch|0|0|0|0.1|100gp|uncommon|Magical inscription on parchment|Grants temp HP (1d10+5) and +1 AC for 1 hour
+LGT003|Flare Stick|light_source|flare|0|0|fire|60|120|Throwable, Single use|0|0|0|0.5|5gp|common|Chemical light stick|Bright light 40ft, dim 40ft for 10 minutes. Can be thrown as signal
+TLL001|Rope (50ft)|tool|utility|0|0|0|0|0|0|0|0|0|10|1gp|common|Hemp rope|Climbing, binding, utility
+TLL002|Grappling Hook|tool|utility|0|0|0|0|0|Requires rope|0|0|0|4|2gp|common|Metal hook for climbing|Attach to rope for climbing
+TLL003|Investigator's Kit|tool|investigation|0|0|0|0|0|0|0|0|0|5|25gp|common|Magnifying glass, evidence bags, notebook|Advantage on Investigation checks for clues
+TLL004|Lockpicks|tool|utility|0|0|0|0|0|0|0|0|0|1|25gp|common|Set of lockpicking tools|Required for picking locks
+TLL005|Monster Hunting Journal|tool|knowledge|0|0|0|0|0|0|0|0|0|3|15gp|uncommon|Detailed notes on monster weaknesses|Advantage on checks to recall monster info
+CMS006|Blessed Water (flask)|consumable|holy|2d4|0|radiant|20|0|Throwable, Single use|0|0|0|1|25gp|uncommon|Water blessed by clergy|2d4 radiant damage to undead/demons
+TLL007|Wooden Stakes (5)|tool|monster_hunting|1d4|0|piercing|0|0|Special (vampires)|0|0|0|2|5gp|common|Sharpened wooden stakes|Required to permanently kill vampires
+TLL008|Silver Chain (10ft)|tool|binding|0|0|0|0|0|Special (restraint)|0|0|0|5|50gp|uncommon|Chain made of pure silver|Restrains supernatural creatures
+EQP001|Fog Mask|equipment|protective|0|0|0|0|0|0|0|0|0|1|30gp|uncommon|Filtered mask for breathing|Advantage on saves vs inhaled toxins/fog effects
+EQP002|Bedroll|equipment|camping|0|0|0|0|0|0|0|0|0|7|1gp|common|Sleeping bag|Comfortable rest
+EQP003|Backpack|equipment|storage|0|0|0|0|0|0|0|0|0|5|2gp|common|Leather backpack|Carries 30 lbs of gear
+TLL006|Tinderbox|tool|utility|0|0|0|0|0|0|0|0|0|1|5sp|common|Flint and steel|Lights fires, torches, lanterns

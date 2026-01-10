@@ -29,29 +29,45 @@ class CharacterDatabase:
     
     def get_character_by_id(self, unique_id):
         """Get character by unique_id"""
-        result = self.characters_df[self.characters_df['unique_id'] == unique_id]
-        return result.iloc[0] if not result.empty else None
+        if self.characters_df is None or self.characters_df.empty:
+            return None
+        try:
+            result = self.characters_df[self.characters_df['unique_id'] == unique_id]
+            return result.iloc[0] if not result.empty else None
+        except Exception as e:
+            print(f"Error getting character by id: {e}")
+            return None
     
     def get_character_by_name(self, name):
         """Get character by name"""
+        if self.characters_df is None or self.characters_df.empty:
+            return None
         result = self.characters_df[self.characters_df['name'] == name]
         return result.iloc[0] if not result.empty else None
     
     def get_characters_by_location(self, location):
         """Get all characters at a location"""
+        if self.characters_df is None or self.characters_df.empty:
+            return pd.DataFrame()
         return self.characters_df[self.characters_df['location'] == location]
     
     def get_characters_by_profession(self, profession):
         """Get all characters with a profession"""
+        if self.characters_df is None or self.characters_df.empty:
+            return pd.DataFrame()
         return self.characters_df[self.characters_df['profession'] == profession]
     
     def get_characters_by_mood(self, mood):
         """Get all characters with a mood"""
+        if self.characters_df is None or self.characters_df.empty:
+            return pd.DataFrame()
         return self.characters_df[self.characters_df['mood'] == mood]
     
     def search_characters(self, **kwargs):
         """Search characters by multiple criteria"""
         result = self.characters_df
+        if result is None or result.empty:
+            return result
         for key, value in kwargs.items():
             if key in result.columns:
                 result = result[result[key] == value]
