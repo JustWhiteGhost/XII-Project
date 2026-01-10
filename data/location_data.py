@@ -3,10 +3,10 @@ Location Database - Loads and manages location data from CSV
 """
 import pandas as pd
 from pathlib import Path
-
+from Config.Paths import LOCATION_CSV
 
 class LocationDatabase:
-    def __init__(self, csv_path="D:\\Projects\\XII Project\\Data CSVs\\Location_Info.csv"):
+    def __init__(self, csv_path=str(LOCATION_CSV)):
         self.csv_path = Path(csv_path)
         self.locations_df = None
         self.load_data()

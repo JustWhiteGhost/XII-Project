@@ -16,7 +16,7 @@ class ChatterSystem:
         self.current_location = location_data
         self.current_npcs = npc_list
 
-        print(f"Loaded scene: {location_data.get('location_name', 'Unknown')} with {npc_list} NPCs.")
+        print(f"Loaded scene: {location_data.get('location_name', 'Unknown')} with {len(npc_list)} NPCs.")
 
     def show_menu(self):
         """Formats and pushes text to Tkinter."""

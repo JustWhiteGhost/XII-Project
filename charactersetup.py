@@ -3,12 +3,13 @@ from data.HeroData import CharacterParser
 import json
 import os
 from pathlib import Path
+from Config.Paths import HERO_CSV, ITEM_CSV, SKILL_CSV
 
 class CharacterSetup:
     def __init__(self):
-        self.phraser = CharacterParser("D:\\Projects\\XII Project\\Data CSVs\\Hero.csv",
-                                       "D:\\Projects\\XII Project\\Data CSVs\\Item_Lookup.csv",
-                                       "D:\\Projects\\XII Project\\Data CSVs\\Skill_Lookup.csv")
+        self.phraser = CharacterParser(str(HERO_CSV),
+                                       str(ITEM_CSV),
+                                       str(SKILL_CSV))
         self.ai = AIConnection()
     def summarize_hero(self):
         path = Path(__file__).parent / "data.txt"

@@ -3,10 +3,11 @@ Character Database - Loads and manages character data from CSV
 """
 import pandas as pd
 from pathlib import Path
+from Config.Paths import CHARACTER_CSV
 
 
 class CharacterDatabase:
-    def __init__(self, csv_path="D:\\Projects\\XII Project\\Data CSVs\\Character_Info.csv"):
+    def __init__(self, csv_path=str(CHARACTER_CSV)):
         self.csv_path = Path(csv_path)
         self.characters_df = None
         self.load_data()

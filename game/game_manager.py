@@ -9,6 +9,7 @@ from game.game_state import GameState
 from Components.AIConnection import AIConnection
 from Components.ChatterSystem import ChatterSystem
 from ui.Dice_ui import DiceUI
+from Config.Paths import HERO_CSV, ITEM_CSV, SKILL_CSV
 import json
 
 with open('config.json', 'r') as f:
@@ -23,9 +24,9 @@ class GameManager:
         self.locdb = LocationDatabase()
         self.dice = DiceUI(dice=config["dice"], die_size=200)
         self.chat = ChatterSystem(self.console.print_to_chat)
-        self.phraser = CharacterParser("D:\\Projects\\XII Project\\Data CSVs\\Hero.csv",
-                                       "D:\\Projects\\XII Project\\Data CSVs\\Item_Lookup.csv",
-                                       "D:\\Projects\\XII Project\\Data CSVs\\Skill_Lookup.csv")
+        self.phraser = CharacterParser(str(HERO_CSV),
+                                       str(ITEM_CSV),
+                                       str(SKILL_CSV))
         self.state = GameState()
         
         self.chat.load_scene(self.locdb.get_location_by_id(self.phraser.get_location()).to_dict(),self.db.get_characters_by_location_id(self.phraser.get_location()).to_dict('records'))
