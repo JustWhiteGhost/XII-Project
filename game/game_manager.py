@@ -1,9 +1,13 @@
 """
 Game Manager - Orchestrates game logic and data flow
 """
+from time import time
 from data.character_data import CharacterDatabase
+from data.location_data import LocationDatabase
 from data.HeroData import CharacterParser
 from game.game_state import GameState
+from Components.AIConnection import AIConnection
+from Components.ChatterSystem import ChatterSystem
 from ui.Dice_ui import DiceUI
 import json
 
@@ -12,14 +16,20 @@ with open('config.json', 'r') as f:
 
 class GameManager:
     def __init__(self, console):
+        self.currenttalk_npc = None
         self.console = console
+        self.ai = AIConnection()
         self.db = CharacterDatabase()
+        self.locdb = LocationDatabase()
         self.dice = DiceUI(dice=config["dice"], die_size=200)
+        self.chat = ChatterSystem(self.console.print_to_chat)
         self.phraser = CharacterParser("D:\\Projects\\XII Project\\Data CSVs\\Hero.csv",
                                        "D:\\Projects\\XII Project\\Data CSVs\\Item_Lookup.csv",
                                        "D:\\Projects\\XII Project\\Data CSVs\\Skill_Lookup.csv")
         self.state = GameState()
         
+        self.chat.load_scene(self.locdb.get_location_by_id(self.phraser.get_location()).to_dict(),self.db.get_characters_by_location_id(self.phraser.get_location()).to_dict('records'))
+
         # Set up console callbacks
         self.console.set_input_callback(self.handle_player_input)
     
@@ -32,7 +42,23 @@ class GameManager:
         self._setup_navigation()
         self._setup_actions()
         self._update_displays()
+    def normalize_response(data):
+        """Handle both direct dict and any wrapper format (response, action, etc.)"""
     
+        if not isinstance(data, dict):
+            return data
+    
+        # Check if there's exactly one key and it contains a list
+        if len(data) == 1:
+            key = list(data.keys())[0]
+            value = data[key]
+        
+            # If the value is a list of [key, value] pairs, convert it
+            if isinstance(value, list) and all(isinstance(item, list) and len(item) == 2 for item in value):
+                return {item[0]: item[1] for item in value}
+    
+            # Otherwise, return as-is (already in correct format)
+        return data
     def handle_player_input(self, text):
         """Process player text input"""
         self.console.print_to_chat(text, "Player")
@@ -40,11 +66,41 @@ class GameManager:
         # Process command (to be expanded)
         if text.lower() in ["help", "?"]:
             self.show_help()
+        elif not self.currenttalk_npc == None:
+            action_result = self.ai.Chat(self.currenttalk_npc, text)
+            action_result = GameManager.normalize_response(action_result)
+            impression = action_result.get("Impression", 0)
+            done = action_result.get("Done", False)
+
+            # Remove system keys
+            action_result.pop("Impression", None)
+            action_result.pop("Done", None)
+
+            #    Print NPC dialogue/actions
+            for key, value in action_result.items():
+                self.console.print_to_chat(f"{value}", f"{key}")
+            # Impression feedback with better thresholds
+            if impression >= 5:
+               self.console.print_to_chat(f"{self.currenttalk_npc['name']} seems delighted! (Impression +{impression})", "SYSTEM")
+            elif impression > 3:
+                self.console.print_to_chat(f"{self.currenttalk_npc['name']} seems to like you more. (Impression +{impression})", "SYSTEM")
+            elif impression > 0:
+                self.console.print_to_chat(f"{self.currenttalk_npc['name']} seems to warm up to you. (Impression +{impression})", "SYSTEM")
+            elif impression == 0:
+                self.console.print_to_chat(f"{self.currenttalk_npc['name']} seems indifferent. (Impression {impression})", "SYSTEM")
+            elif impression > -3:
+                self.console.print_to_chat(f"{self.currenttalk_npc['name']} seems annoyed. (Impression {impression})", "SYSTEM")
+            else:  # impression <= -3
+                self.console.print_to_chat(f"{self.currenttalk_npc['name']} seems angry! (Impression {impression})", "SYSTEM")
+
+            # End conversation if done
+            if done:
+                self.console.print_to_chat(f"You end the conversation with {self.currenttalk_npc['name']}.", "SYSTEM")
+                self.currenttalk_npc = None
+                            
         else:
-            self.console.print_to_chat(
-                "Input received. Game logic to be implemented.",
-                "SYSTEM"
-            )
+            self.currenttalk_npc =self.chat.handle_input(text)
+            
     
     def show_help(self):
         """Display help information"""
@@ -127,11 +183,11 @@ class GameManager:
     
     def show_location_info(self):
         """Display location information"""
-        self.console.print_to_chat("Location: The Foggy Inn", "SYSTEM")
+        self.console.print_to_chat(self.console.get_chat_history(), "ACTION")
     
     def show_inventory(self):
         """Display inventory"""
-        self.console.print_to_chat("Inventory: Empty", "SYSTEM")
+        self.console.print_to_chat(f'{self.ai.extract_roleplay_guide("D:\\Projects\\XII Project\\data.txt")}', "INVENTORY")
     
     def show_stats(self):
         """Display player stats"""
@@ -140,24 +196,10 @@ class GameManager:
             f"Gold: {self.state.player_gold}",
             "STATS"
         )
-    # D20 check handler
-    def perform_d20_check(self, mod: int, bonus: int = 0, difficulty: int = 10) -> bool:
-        """Perform a D20 check against a difficulty"""
-        roll = self.dice.roll_die("1d20")
-        total = roll + mod + bonus
-        success = total >= difficulty
-        return {"roll": roll, "total": total, "success": success}
-    #Attack Roll handler
-    def attack_roll(self, character, weapon, target_ac):
-        dex_mod = character['dexterity_mod']["modifier"]
-        attack_bonus = weapon["damage_bonus"]
-
-        return self.perform_d20_check(mod=dex_mod, bonus=attack_bonus, difficulty=target_ac)
     # Action button handlers
     def action_talk(self):
         """Handle talk action"""
-        result = self.dice.roll_die(dice="4d20")
-        self.console.print_to_chat(f"You engage in conversation... Rolled a {result}", "ACTION")
+        self.chat.show_menu()
     
     def action_trade(self):
         """Handle trade action"""
@@ -165,15 +207,16 @@ class GameManager:
     
     def action_gift(self):
         """Handle gift action"""
-        self.console.print_to_chat("Select an item to gift...", "ACTION")
+        self.console.print_to_chat(f"{self.db.get_characters_by_location_id(self.phraser.get_location()).to_dict('records')}", "ACTION")
     
     def action_leave(self):
         """Handle leave action"""
-        self.console.print_to_chat(f"{self.phraser.get_weapons()}","ACTION")
+        self.console.print_to_chat(f"{self.phraser.format_for_ai_gm()}","ACTION")
     
     def action_examine(self):
         """Handle examine action"""
-        self.console.print_to_chat("You look around carefully...", "ACTION")
+        s= self.dice.roll_die("1d20")
+        self.console.print_to_chat(f"You look around carefully... rolled {s}", "ACTION")
     
     def action_rest(self):
         """Handle rest action"""
@@ -183,7 +226,7 @@ class GameManager:
     
     def action_search(self):
         """Handle search action"""
-        self.console.print_to_chat("You search the area...", "ACTION")
+        self.console.print_to_chat("".join(self.ai.characterProfiler(self.phraser.format_for_ai_gm())),"ACTION")
     
     def action_wait(self):
         """Handle wait action"""

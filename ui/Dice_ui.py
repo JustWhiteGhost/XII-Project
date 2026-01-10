@@ -291,13 +291,6 @@ class DiceUI:
         else:
             self.draw_number_face(face_value)
         
-        # Update result label
-        if count == 1:
-            result_text = f"Result: {total}"
-        else:
-            rolls_str = " + ".join(map(str, rolls))
-            result_text = f"Rolls: {rolls_str}\nTotal: {total}"
-        
         self.result_label.config(
             text=f"{dice} → rolls: {rolls} | total: {total}"
         )

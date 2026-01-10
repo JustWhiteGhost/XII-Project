@@ -1,0 +1,28 @@
+Profile for Aiden Williams:
+### AIDEN WILLIAMS: A FIGHTER IN FOG SHROUDED LANDS ####
+
+#### Narrative Bio ####
+
+Aiden Williams is a stoic, methodical fighter who navigates the fog-shrouded world with ease. His perpetual grim expression and weathered face belie a deep sense of protectiveness for innocents, a trait that often contradicts his cold, calculated exterior. Trained as a Monster Hunter and Investigator, Aiden's imposing physique and knight-like strength make him a formidable presence in combat.
+
+##### Stats Block #####
+
+* HP: **47/47**
+* AC: **15**
+* Sanity: **18/20**
+* **Ability Scores:** STR **18**, DEX **16**, WIS **15**, INT **14**, CHA **10**
+
+#### Combat Style ####
+
+Aiden is a **Tactical Gunslinger** who harnesses the power of environment and positioning to outmaneuver foes. He wields a variety of weapons, including a **Revolver** and **Rifle**, to control ranges and pick off opponents with precision. The **Hunting Knife** serves as a close-quarters alternative, its **+7 to hit** making it a reliable choice in tight spaces.
+
+#### Roleplay Guide ####
+
+* **Strengths/Weaknesses:** Aiden's grim demeanor and unsettling presence inspire confidence in combat, but also make him struggle with Charisma checks among strangers. His eyes, adapted to fog, falter in bright light, making him vulnerable in such situations.
+* **Motivation:** Aiden is driven by his own quest, **protect survivors**, and **document monster weaknesses**. He fears losing control and becoming what he hunts, reflecting the turmoil within his stoic exterior.
+
+#### Inventory Highlights ####
+
+* **Cowboy Hat**: A worn, trusted accessory that complements Aiden's weathered cowboy outfit.
+* **Flask of Whiskey**: A personal indulgence that helps him unwind after a long, harrowing day of hunting monsters.
+* **Monster Hunting Journal (TOL005)**: A detailed log of Aiden's encounters, where he records his observations, notes, and theories on the nature of the fog and its creatures.

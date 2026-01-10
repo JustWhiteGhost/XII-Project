@@ -81,3 +81,12 @@ class CharacterDatabase:
             hate_tags = char['hate_tags'].split(', ') if pd.notna(char['hate_tags']) else []
             return favor_tags, hate_tags
         return [], []
+    def get_characters_by_location_id(self, location_id):
+        """Get all characters at a specific location ID"""
+        if self.characters_df is None or self.characters_df.empty:
+            return pd.DataFrame()
+        try:
+            return self.characters_df[self.characters_df['location'] == location_id]
+        except Exception as e:
+            print(f"Error getting characters by location id: {e}")
+            return pd.DataFrame()

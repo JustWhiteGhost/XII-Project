@@ -359,7 +359,12 @@ class CharacterParser:
             'consumables': self.get_consumables(),
             'currency': self.current_character.get('currency', '0gp') if self.current_character else '0gp'
         }
-    
+    def get_location(self) -> str:
+        """Get current character's location."""
+        if not self.current_character:
+            return {}
+        
+        return self.current_character.get('location_id', 000000)
     def get_abilities_and_traits(self) -> Dict:
         """Get class features, racial traits, and special abilities."""
         if not self.current_character:
@@ -505,35 +510,3 @@ PROFICIENT SKILLS:
         output += f"\nNOTES: {char['profile']['special_notes']}\n"
         
         return output
-
-
-# Example usage:
-if __name__ == "__main__":
-    # Initialize parser
-    parser = CharacterParser(
-        character_csv='../Data CSVs/Hero.csv',
-        items_csv='../Data CSVs/Item_Lookup.csv',
-        skills_csv='../Data CSVs/Skill_Lookup.csv'
-    )
-    
-    # Set active character
-    parser.set_character('Aiden Williams')
-    
-    # Get specific information
-    print("=== BASIC INFO ===")
-    print(parser.get_basic_info())
-    
-    print("\n=== COMBAT STATS ===")
-    print(parser.get_combat_stats())
-    
-    print("\n=== WEAPONS ===")
-    for weapon in parser.get_weapons():
-        print(f"{weapon['item_name']}: +{weapon['attack_bonus']} to hit, "
-              f"{weapon['damage_dice']}+{weapon['damage_bonus']} {weapon['damage_type']}")
-    
-    print("\n=== SKILLS ===")
-    for skill in parser.get_skills():
-        print(f"{skill['skill_name']}: +{skill['total_bonus']}")
-    
-    print("\n=== FORMATTED FOR AI GM ===")
-    print(parser.format_for_ai_gm())
