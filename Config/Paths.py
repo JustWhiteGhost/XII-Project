@@ -10,6 +10,7 @@ MEMORY_DIR = PROJECT_ROOT / "memory"
 # CSV files
 CHARACTER_CSV = DATA_DIR / "Character_Info.csv"
 LOCATION_CSV = DATA_DIR / "Location_Info.csv"
+LOCATION_LOCKS_CSV = DATA_DIR / "Location_Locks.csv"
 HERO_CSV = DATA_DIR / "Hero.csv"
 ITEM_CSV = DATA_DIR / "Item_Lookup.csv"
 SKILL_CSV = DATA_DIR / "Skill_Lookup.csv"

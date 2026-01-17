@@ -46,3 +46,4 @@ EQP001|Fog Mask|equipment|protective|0|0|0|0|0|0|0|0|0|1|30gp|uncommon|Filtered 
 EQP002|Bedroll|equipment|camping|0|0|0|0|0|0|0|0|0|7|1gp|common|Sleeping bag|Comfortable rest
 EQP003|Backpack|equipment|storage|0|0|0|0|0|0|0|0|0|5|2gp|common|Leather backpack|Carries 30 lbs of gear
 TLL006|Tinderbox|tool|utility|0|0|0|0|0|0|0|0|0|1|5sp|common|Flint and steel|Lights fires, torches, lanterns
+KEY001|Private Chamber Key|key|access|0|0|0|0|0|0|0|0|0|0.5|15gp|uncommon|Bronze key for Royal Inn Private Chamber|Unlocks the private chambers in the inn

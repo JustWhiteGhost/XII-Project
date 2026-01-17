@@ -3,6 +3,7 @@ from typing import Dict, List, Optional, Union
 
 class CharacterParser:
     def __init__(self, character_csv: str, items_csv: str, skills_csv: str):
+        self.character_csv_path = character_csv
         self.characters_df = pd.read_csv(character_csv, sep='|')
         self.items_df = pd.read_csv(items_csv, sep='|')
         self.skills_df = pd.read_csv(skills_csv, sep='|')
@@ -18,6 +19,36 @@ class CharacterParser:
             self.current_character = char.iloc[0].to_dict()
             return True
         return False
+    
+    def save_current_character(self) -> bool:
+        """
+        Save current character changes back to the CSV file.
+        
+        Returns:
+            bool: True if save was successful
+        """
+        if not self.current_character:
+            return False
+        
+        # Find the character's row index in the dataframe
+        char_name = self.current_character['character_name']
+        char_idx = self.characters_df[self.characters_df['character_name'] == char_name].index
+        
+        if len(char_idx) == 0:
+            return False
+        
+        # Update the dataframe with current character data
+        for col in self.current_character.keys():
+            if col in self.characters_df.columns:
+                self.characters_df.at[char_idx[0], col] = self.current_character[col]
+        
+        # Save to CSV
+        try:
+            self.characters_df.to_csv(self.character_csv_path, sep='|', index=False)
+            return True
+        except Exception as e:
+            print(f"Error saving character: {e}")
+            return False
     
     def get_basic_info(self) -> Dict:
         """Get basic character information."""

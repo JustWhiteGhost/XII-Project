@@ -1,0 +1,4 @@
+location_id|location_name|requires_key|key_item_id|key_name|can_pick_lock|pick_lock_dc
+010102|Capital District - Royal Inn Private Chamber|True|KEY001|Private Chamber Key|True|12
+010302|Capital District - Private Dining Hall|False|NULL|NULL|False|0
+010402|Capital District - Flagon Back Room|False|NULL|NULL|False|0

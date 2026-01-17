@@ -5,6 +5,8 @@ import json
 
 from sympy import content
 
+from Config.Paths import HERO_SUMMARY
+
 
 
 with open('config.json', 'r') as f:
@@ -65,7 +67,7 @@ class AIConnection:
       prompt = f"""
 **Role:** You are the **Game Master** and **{char['name']}** ({char['age']}, {char['profession']}, {char['nature']}, {char['mood']}).
 **Context:** Bio: {char['description']} Likes: {char['favor_tags']}. Hates: {char['hate_tags']}.
-**Player Info:** {self.extract_roleplay_guide('D:\\Projects\\XII Project\\data.txt')}
+**Player Info:** {self.extract_roleplay_guide(HERO_SUMMARY)}
 **Task:** Respond to input. Treat SYSTEM logs as real physical events.
 **Format:** JSON ONLY. No markdown.
 **Structure:** `[["Game Master", "Action"], ["{char['name']}", "Dialogue"], ["Impression", INT], ["Done", BOOL]]`
